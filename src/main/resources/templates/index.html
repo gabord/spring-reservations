@@ -1,17 +1,20 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+	layout:decorate="~{layouts/content}">
 <head>
-  <meta charset="UTF-8" />
-  <title>Reservation Portal</title>
-  <link href="./css/main.css" rel="stylesheet" type="text/css" />
+<meta charset="UTF-8" />
+<title>Reservation Portal</title>
+<link href="./css/main.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
-<div th:insert="fragments/header :: header"></div>
 
-
-  <div><a href="/reservation-list.html">List of reservations</a></div>
-  <div><a href="/reservation.html">Make a reservation</a></div>
-  <span th:text="'Message: '"></span>
-
+	<div layout:fragment="content">
+		<div>
+			<a href="/reservation-list.html">List of reservations</a>
+		</div>
+		<div>
+			<a href="/reservation.html">Make a reservation</a>
+		</div> <span th:text="'Message: '"></span>
+	</div>
 </body>
 </html>
