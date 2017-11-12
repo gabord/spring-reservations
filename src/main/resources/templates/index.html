@@ -9,12 +9,9 @@
 <body>
 
 	<div layout:fragment="content">
-		<div>
-			<a href="/reservation-list.html">List of reservations</a>
+		<div th:replace="content/home :: home">
+		
 		</div>
-		<div>
-			<a href="/reservation.html">Make a reservation</a>
-		</div> <span th:text="'Message: '"></span>
 	</div>
 </body>
 </html>
