@@ -9,19 +9,28 @@
 
 <body>
   <div layout:fragment="content">
-      <h1>Make a reservation</h1>      
+    <h1>Make a reservation</h1>
     <form id="reservationForm">
-      <label>Facility ID:</label>
-      <input name="resourceId" type="input" />
+      <div class="input-group">
+        <label>Facility ID:</label>
+        <input name="resourceId" type="input" />
+      </div>
 
-      <label>Start Date:</label>
-      <input name="fromDate" type="date" />
+      <div class="input-group">
+        <label>Start Date:</label>
+        <input name="fromDate" type="date" />
+      </div>
 
-      <label>End Date:</label>
-      <input name="toDate" type="date" />
+      <div class="input-group">
 
-      <label>Reserved By:</label>
-      <input name="owner" type="input" size="64" />
+        <label>End Date:</label>
+        <input name="toDate" type="date" />
+      </div>
+
+      <div class="input-group">
+        <label>Reserved By:</label>
+        <input name="owner" type="input" size="64" />
+      </div>
 
       <button id="submitReservation">Place Reservation</button>
 
