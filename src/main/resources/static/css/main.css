@@ -1,3 +1,27 @@
+input {
+    padding: 10px 20px;
+    border: 1px solid #7E8999;
+    border-radius: 5px;
+    width: 50%;
+}
+
+input.invalid {
+    border: 1px solid red;
+}
+
+.input-group {
+    margin: 10px 0px;
+}
+
+button, input[type="submit"] {
+    background-color: steelblue;
+    font-size: 20px;
+    color: white;
+    border: 0px;
+    border-radius: 8px;
+    margin: 10px 0px;
+}
+
 body {
     background-color: #91B496;
     font-family: Arial, Helvetica, sans-serif;
@@ -29,11 +53,19 @@ main {
     right: 10px;
 }
 
-header {
-    min-height: 70px;
+header, footer {
     background-color: #41536D;
     color: white;
     clear: both;
+}
+
+header {
+    min-height: 70px;
+}
+
+footer {
+    min-height: 20px;
+    margin-top: 30px;
 }
 
 #wrapper {
@@ -100,3 +132,9 @@ header {
       text-align: left;
     }
   }
+  
+  @media screen and (max-width: 1024px) {
+    #wrapper {
+        width: 100%;
+    }
+}
