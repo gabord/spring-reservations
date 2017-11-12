@@ -10,12 +10,22 @@ table > caption {
     font-size: 1.5em;
 }
 
-input.invalid {
-    border: 1px solid red;
+input.error {
+    border: 2px solid maroon;
 }
 
 .input-group {
     margin: 10px 0px;
+}
+
+.input-group > label {
+    font-weight: bold;
+}
+
+label.error {
+    display: block;
+    color: maroon;
+    font-weight: normal;
 }
 
 button, input[type="submit"] {

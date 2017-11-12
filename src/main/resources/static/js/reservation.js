@@ -12,46 +12,81 @@
     $.each($('#reservationForm').serializeArray(), function (i, field) {
       reservationFormValues[field.name] = field.value;
     });
-    
+
     return reservationFormValues;
   }
 
 
   $(document).ready(function () {
 
-    function initializeDatePickers() {
-      $("#fromDate").datepicker({
-        changeMonth: true,
-        changeYear: true,
-        dateFormat: 'yy-mm-dd'
-      });
-      $("#toDate").datepicker({
-        changeMonth: true,
-        changeYear: true,
-        dateFormat: 'yy-mm-dd'
+    function setupValidation() {
+      $('#reservationForm').validate({
+        rules: {
+          "resourceId": {
+            required: true
+          },
+          "fromDate": {
+            required: true
+          },
+          "toDate": {
+            required: true
+          },
+          "owner": {
+            required: true
+          }
+        },
+        messages: {
+          "resourceId": {
+            required: "Resource ID cannot be empty!"
+          },
+          "fromDate": {
+            required: "Beginning date cannot be empty!"
+          },
+          "toDate": {
+            required: "End date cannot be empty!"
+          },
+          "owner": {
+            required: "Reserved by field cannot be empty!"
+          }
+        },
+        onfocusout: function (element) {
+          this.element(element);
+        },
+        errorElement: 'label',
+        submitHandler: function (form) {
+          onSubmitReservationForm();
+          return false;
+        }
       });
     }
 
-
-
-
-    $("#submitReservation").click(function (e) {
-      e.preventDefault();
-
-      $('.message').hide();
-
+    function makeRequestUrl() {
       var reservationRequest = collectFormInput();
-
-      // TODO: form input validation
-
       var reservationUrl =
         '/api/reservations/' + encodeURIComponent(reservationRequest.resourceId)
         + '/from-' + encodeURIComponent(reservationRequest.fromDate)
         + '/to-' + encodeURIComponent(reservationRequest.toDate)
         + '/?owner=' + encodeURIComponent(reservationRequest.owner);
+      return reservationUrl;
+    }
+
+    function initializeDatePickers() {
+      var datePickerOptions = {
+        changeYear: true,
+        dateFormat: 'yy-mm-dd'
+      };
+
+      $("#fromDate").datepicker(datePickerOptions);
+      $("#toDate").datepicker(datePickerOptions);
+    }
+
+
+    function onSubmitReservationForm() {
+      $('.message').hide();
+      var newReservationUrl = makeRequestUrl();
 
       $.ajax({
-        url: reservationUrl,
+        url: newReservationUrl,
         method: 'POST',
         async: true,
         cache: false,
@@ -61,27 +96,42 @@
 
         success: function (data, statusText, response) {
           var reservationId = response.getResponseHeader('reservation-id');
-          $('#reservationId').text(reservationId);
-          $('#reservation-successful-message').show();
+          swal(
+            'Success!',
+            'Your reservation has been successfully processed. Your reservation id is: ' + reservationId,
+            'success'
+          );
         },
 
         error: function (XMLHttpRequest, textStatus, errorThrown) {
           console.log("reservation request failed ... HTTP status code: " + XMLHttpRequest.status + ' message ' + XMLHttpRequest.responseText);
-
-          var errorCodeToHtmlIdMap = { 400: '#validation-error', 405: '#validation-error', 409: '#conflict-error', 500: '#system-error' };
-          var id = errorCodeToHtmlIdMap[XMLHttpRequest.status];
-
-          if (!id) {
-            id = errorCodeToHtmlIdMap[500];
+          var errorMessage = '';
+          switch (XMLHttpRequest.status) {
+            case 400:
+            case 405:
+              errorMessage = 'Reservation failed - please check your input for completeness.';
+              break;
+            case 409:
+              errorMessage = 'The room is already reserved for this period, please choose a different period.';
+              break;
+            case 500:
+              errorMessage = 'Reservation failed - please try again later.';
+              break;
+            default:
+              errorMessage = 'Reservation failed - please try again later.'; 
           }
 
-          $(id).fadeIn();
+          swal(
+            'Oops...',
+            errorMessage,
+            'error'
+          );
         }
       });
-
-    });
+    }
 
     initializeDatePickers();
+    setupValidation();
   });
 
 
