@@ -5,6 +5,11 @@ input {
     width: 50%;
 }
 
+table > caption {
+    color: floralwhite;
+    font-size: 1.5em;
+}
+
 input.invalid {
     border: 1px solid red;
 }
@@ -32,7 +37,7 @@ main, header, footer {
 }
 
 main {
-    color: black;
+    color: #3e3e3e;
 }
 
 #header-left {
