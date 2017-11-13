@@ -74,20 +74,13 @@
       var datePickerOptions = {
         changeYear: true,
         dateFormat: 'yy-mm-dd',
-        onclose: function() {
+        onSelect : function(date) {
           $(this).valid();
         }
       };
 
-      $("#fromDate").datepicker(datePickerOptions)
-        .on('close', function (ev) {
-          $(this).valid();  // triggers the validation test
-        });
-      $("#toDate").datepicker(datePickerOptions)
-      .on('changeDate', function(ev) {
-        $(this).valid();  // triggers the validation test
-        // '$(this)' refers to '$("#datepicker")'
-    });
+      $("#fromDate").datepicker(datePickerOptions);
+      $("#toDate").datepicker(datePickerOptions);
     }
 
 
