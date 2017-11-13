@@ -19,6 +19,19 @@
 
   $(document).ready(function () {
 
+    function addCustomValidators() {
+      jQuery.validator.addMethod("greaterThan", 
+      function(value, element, params) {
+      
+          if (!/Invalid|NaN/.test(new Date(value))) {
+              return Date.parse(value) > Date.parse($(params).val());
+          }
+      
+          return isNaN(value) && isNaN($(params).val()) 
+              || (Number(value) > Number($(params).val())); 
+      },'Must be greater than {0}.');
+    }
+
     function setupValidation() {
       $('#reservationForm').validate({
         rules: {
@@ -29,7 +42,8 @@
             required: true
           },
           "toDate": {
-            required: true
+            required: true,
+            greaterThan: "#fromDate"
           },
           "owner": {
             required: true
@@ -43,7 +57,8 @@
             required: "Beginning date cannot be empty!"
           },
           "toDate": {
-            required: "End date cannot be empty!"
+            required: "End date cannot be empty!",
+            greaterThan: "End date must be after start date!"
           },
           "owner": {
             required: "Reserved by field cannot be empty!"
@@ -135,6 +150,7 @@
       });
     }
 
+    addCustomValidators();
     initializeDatePickers();
     setupValidation();
   });
