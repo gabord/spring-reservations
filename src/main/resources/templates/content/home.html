@@ -8,7 +8,9 @@
 
 <body>
   <div th:fragment="home">
-      <h1>Webinar Resorts Reservation App</h1>      
+      <h1>Webinar Resorts Reservation App</h1>  
+      <p>Welcome to our nice reservation handling app.</p>
+      <p>You are logged in as <span th:remove="tag" th:text="${login}">name</span>.</p> 
   </div>
 
 </body>

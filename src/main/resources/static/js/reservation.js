@@ -73,11 +73,21 @@
     function initializeDatePickers() {
       var datePickerOptions = {
         changeYear: true,
-        dateFormat: 'yy-mm-dd'
+        dateFormat: 'yy-mm-dd',
+        onclose: function() {
+          $(this).valid();
+        }
       };
 
-      $("#fromDate").datepicker(datePickerOptions);
-      $("#toDate").datepicker(datePickerOptions);
+      $("#fromDate").datepicker(datePickerOptions)
+        .on('close', function (ev) {
+          $(this).valid();  // triggers the validation test
+        });
+      $("#toDate").datepicker(datePickerOptions)
+      .on('changeDate', function(ev) {
+        $(this).valid();  // triggers the validation test
+        // '$(this)' refers to '$("#datepicker")'
+    });
     }
 
 
@@ -100,7 +110,7 @@
             'Success!',
             'Your reservation has been successfully processed. Your reservation id is: ' + reservationId,
             'success'
-          ).then(function(value) {
+          ).then(function (value) {
             window.location.href = '/reservations';
           });
         },
@@ -120,7 +130,7 @@
               errorMessage = 'Reservation failed - please try again later.';
               break;
             default:
-              errorMessage = 'Reservation failed - please try again later.'; 
+              errorMessage = 'Reservation failed - please try again later.';
           }
 
           swal(
