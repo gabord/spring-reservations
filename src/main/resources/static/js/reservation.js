@@ -100,7 +100,7 @@
             'Success!',
             'Your reservation has been successfully processed. Your reservation id is: ' + reservationId,
             'success'
-          ).then((value) => {
+          ).then(function(value) {
             window.location.href = '/reservations';
           });
         },

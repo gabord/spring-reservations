@@ -1,41 +1,4 @@
-input {
-    padding: 10px 20px;
-    border: 1px solid #7E8999;
-    border-radius: 5px;
-    width: 50%;
-}
-
-table > caption {
-    color: floralwhite;
-    font-size: 1.5em;
-}
-
-input.error {
-    border: 2px solid maroon;
-}
-
-.input-group {
-    margin: 10px 0px;
-}
-
-.input-group > label {
-    font-weight: bold;
-}
-
-label.error {
-    display: block;
-    color: maroon;
-    font-weight: normal;
-}
-
-button, input[type="submit"] {
-    background-color: steelblue;
-    font-size: 20px;
-    color: white;
-    border: 0px;
-    border-radius: 8px;
-    margin: 10px 0px;
-}
+/* Structure */
 
 body {
     background-color: #91B496;
@@ -89,6 +52,50 @@ footer {
     width: 70%;
     margin: 0 auto;
 }
+
+@media screen and (max-width: 1024px) {
+    #wrapper {
+        width: 100%;
+    }
+}
+
+/* Input */
+
+input {
+    padding: 10px 20px;
+    border: 1px solid #7E8999;
+    border-radius: 5px;
+    width: 50%;
+}
+
+input.error {
+    border: 2px solid maroon;
+}
+
+.input-group {
+    margin: 10px 0px;
+}
+
+.input-group > label {
+    font-weight: bold;
+}
+
+label.error {
+    display: block;
+    color: maroon;
+    font-weight: normal;
+}
+
+button, input[type="submit"] {
+    background-color: steelblue;
+    font-size: 20px;
+    color: white;
+    border: 0px;
+    border-radius: 8px;
+    margin: 10px 0px;
+}
+
+/* Navigation */
 
 /* Add a black background color to the top navigation */
 .topnav {
@@ -148,8 +155,9 @@ footer {
     }
   }
   
-  @media screen and (max-width: 1024px) {
-    #wrapper {
-        width: 100%;
-    }
+/* Misc */
+
+table > caption {
+    color: floralwhite;
+    font-size: 1.5em;
 }
